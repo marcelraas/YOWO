@@ -1,13 +1,9 @@
 import torch
 import torch.nn as nn
-import numpy as np
-import torch.nn.functional as F
-from torch.autograd import Variable
 
-from cfg import *
-from cfam import CFAMBlock
-from backbones_2d import darknet
-from backbones_3d import mobilenet, shufflenet, mobilenetv2, shufflenetv2, resnext, resnet
+from yowo.cfam import CFAMBlock
+from yowo.backbones_2d import darknet
+from yowo.backbones_3d import resnet, resnext, shufflenetv2, mobilenet, mobilenetv2, shufflenet
 
 """
 YOWO model used in spatialtemporal action localization
@@ -50,7 +46,7 @@ class YOWO(nn.Module):
             self.backbone_3d = mobilenetv2.get_model(width_mult=1.0)
             num_ch_3d = 1280 # Number of output channels for backbone_3d
         elif opt.backbone_3d == "shufflenet_2x":
-            self.backbone_3d = shufflenet.get_model(groups=3,   width_mult=2.0)
+            self.backbone_3d = shufflenet.get_model(groups=3, width_mult=2.0)
             num_ch_3d = 1920 # Number of output channels for backbone_3d
         elif opt.backbone_3d == "shufflenetv2_2x":
             self.backbone_3d = shufflenetv2.get_model(width_mult=2.0)

@@ -8,8 +8,6 @@
 #        Last modification: Oct 9th 2018                                                 #
 ###########################################################################################
 
-import os
-import sys
 from collections import Counter
 
 import matplotlib.pyplot as plt
@@ -17,7 +15,7 @@ import numpy as np
 
 from BoundingBox import *
 from BoundingBoxes import *
-from utils import *
+from yowo.utils import *
 
 
 class Evaluator:

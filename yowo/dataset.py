@@ -1,13 +1,9 @@
 #!/usr/bin/python
 # encoding: utf-8
 
-import os
-import random
 import torch
-import numpy as np
 from torch.utils.data import Dataset
-from PIL import Image
-from clip import *
+from yowo.clip import *
 import glob
 
 class listDataset(Dataset):

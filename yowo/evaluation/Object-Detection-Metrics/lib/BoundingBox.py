@@ -1,6 +1,3 @@
-from utils import *
-
-
 class BoundingBox:
     def __init__(self,
                  imageName,

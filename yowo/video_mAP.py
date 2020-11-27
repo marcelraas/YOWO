@@ -1,16 +1,14 @@
 import torch
 import torch.nn as nn
 import numpy as np
-import os
 import glob
-from opts import parse_opts
-from cfg import parse_cfg
+from yowo.opts import parse_opts
+from yowo.cfg import parse_cfg
 from torch.utils.data import Dataset
 from torchvision import transforms
 from scipy.io import loadmat
-from model import YOWO
-from utils import *
-from eval_results import *
+from yowo.model import YOWO
+from yowo.eval_results import *
 
 opt = parse_opts()
 
@@ -19,7 +17,7 @@ assert dataset == 'ucf101-24' or dataset == 'jhmdb-21', 'invalid dataset'
 
 datacfg       = opt.data_cfg
 cfgfile       = opt.cfg_file
-gt_file       = 'finalAnnots.mat' # Necessary for ucf
+gt_file       = '../finalAnnots.mat'  # Necessary for ucf
 
 data_options  = read_data_cfg(datacfg)
 net_options   = parse_cfg(cfgfile)[0]

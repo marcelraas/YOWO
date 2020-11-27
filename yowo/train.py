@@ -1,23 +1,16 @@
 from __future__ import print_function
-import sys
-import time
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 import torch.optim as optim
-import torch.backends.cudnn as cudnn
-from torchvision import datasets, transforms
+from torchvision import transforms
 
-import dataset
-import random
-import math
-import os
-from opts import parse_opts
-from utils import *
-from cfg import parse_cfg
-from region_loss import RegionLoss
+from yowo import dataset
+from yowo.opts import parse_opts
+from yowo.utils import *
+from yowo.cfg import parse_cfg
+from yowo.region_loss import RegionLoss
 
-from model import YOWO, get_fine_tuning_parameters
+from yowo.model import YOWO, get_fine_tuning_parameters
 
 # Training settings
 opt = parse_opts()
@@ -151,15 +144,15 @@ def train(epoch):
 
     train_loader = torch.utils.data.DataLoader(
         dataset.listDataset(basepath, trainlist, dataset_use=dataset_use, shape=(init_width, init_height),
-                       shuffle=True,
-                       transform=transforms.Compose([
+                            shuffle=True,
+                            transform=transforms.Compose([
                            transforms.ToTensor(),
-                       ]), 
-                       train=True, 
-                       seen=cur_model.seen,
-                       batch_size=batch_size,
-                       clip_duration=clip_duration,
-                       num_workers=num_workers),
+                       ]),
+                            train=True,
+                            seen=cur_model.seen,
+                            batch_size=batch_size,
+                            clip_duration=clip_duration,
+                            num_workers=num_workers),
         batch_size=batch_size, shuffle=False, **kwargs)
 
     lr = adjust_learning_rate(optimizer, processed_batches)
@@ -205,8 +198,8 @@ def test(epoch):
 
     test_loader = torch.utils.data.DataLoader(
     dataset.listDataset(basepath, testlist, dataset_use=dataset_use, shape=(init_width, init_height),
-                   shuffle=False,
-                   transform=transforms.Compose([
+                        shuffle=False,
+                        transform=transforms.Compose([
                        transforms.ToTensor()
                    ]), train=False),
     batch_size=batch_size, shuffle=False, **kwargs)

@@ -1,13 +1,10 @@
 #!/usr/bin/python
 # encoding: utf-8
 import random
-import os
 import torch
 from PIL import Image
 import numpy as np
-from utils import *
-import cv2
-
+from yowo.utils import *
 
 
 def scale_image_channel(im, c, v):

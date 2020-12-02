@@ -18,8 +18,8 @@ class YOWO(nn.Module):
         
         ##### 2D Backbone #####
         if opt.backbone_2d == "darknet":
-            self.backbone_2d = darknet.Darknet("cfg/yolo.cfg")
-            num_ch_2d = 425 # Number of output channels for backbone_2d
+            self.backbone_2d = darknet.Darknet(opt.darknet_config)  # default cfg/yolo.cfg
+            num_ch_2d = 425  # Number of output channels for backbone_2d
         else:
             raise ValueError("Wrong backbone_2d model is requested. Please select\
                               it from [darknet]")

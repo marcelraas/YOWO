@@ -19,6 +19,7 @@ def parse_opts():
     parser.add_argument('--freeze_backbone_2d', action='store_true', help='If true, 2d_backbone is frozen, else it is finetuned.')
     parser.set_defaults(freeze_backbone_2d=False)
     parser.add_argument('--evaluate', action='store_true', help='If true, model is not trained, but only evaluated.')
+    parser.add_argument('--darknet_config', default="cfg/yolo.cfg")
     parser.set_defaults(evaluate=False)
 
     args = parser.parse_args()

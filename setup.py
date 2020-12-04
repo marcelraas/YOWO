@@ -12,6 +12,7 @@ setuptools.setup(
         'moviepy',
         'sklearn',
         'torch',
-        'pytorch-lightning'
+        'pytorch-lightning',
+        'torchvision'
     ],
 )

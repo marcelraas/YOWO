@@ -134,7 +134,7 @@ def build_targets(pred_boxes, target, anchors, num_anchors, num_classes, nH, nW,
 class RegionLoss(nn.Module):
     # for our model anchors has 10 values and number of anchors is 5
     # parameters: 24, 10 float values, 24, 5
-    def __init__(self, num_classes=0, anchors=[], batch=16, num_anchors=1):
+    def __init__(self, num_classes=0, anchors=[], batch=16, num_anchors=1, verbose=False):
         super(RegionLoss, self).__init__()
         self.num_classes = num_classes
         self.batch = batch
@@ -154,6 +154,7 @@ class RegionLoss(nn.Module):
         self.l_conf = AverageMeter()
         self.l_cls = AverageMeter()
         self.l_total = AverageMeter()
+        self.verbose = verbose
 
 
     def forward(self, output, target):
@@ -276,11 +277,12 @@ class RegionLoss(nn.Module):
             print('     build targets : %f' % (t3 - t2))
             print('       create loss : %f' % (t4 - t3))
             print('             total : %f' % (t4 - t0))
-        print('%d: nGT %d, recall %d, proposals %d, loss: x %.2f(%.2f), '
-              'y %.2f(%.2f), w %.2f(%.2f), h %.2f(%.2f), conf %.2f(%.2f), '
-              'cls %.2f(%.2f), total %.2f(%.2f)'
-               % (self.seen, nGT, nCorrect, nProposals, self.l_x.val, self.l_x.avg,
-                self.l_y.val, self.l_y.avg, self.l_w.val, self.l_w.avg,
-                self.l_h.val, self.l_h.avg, self.l_conf.val, self.l_conf.avg,
-                self.l_cls.val, self.l_cls.avg, self.l_total.val, self.l_total.avg))
+        if self.verbose:
+            print('%d: nGT %d, recall %d, proposals %d, loss: x %.2f(%.2f), '
+                  'y %.2f(%.2f), w %.2f(%.2f), h %.2f(%.2f), conf %.2f(%.2f), '
+                  'cls %.2f(%.2f), total %.2f(%.2f)'
+                   % (self.seen, nGT, nCorrect, nProposals, self.l_x.val, self.l_x.avg,
+                    self.l_y.val, self.l_y.avg, self.l_w.val, self.l_w.avg,
+                    self.l_h.val, self.l_h.avg, self.l_conf.val, self.l_conf.avg,
+                    self.l_cls.val, self.l_cls.avg, self.l_total.val, self.l_total.avg))
         return loss

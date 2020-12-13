@@ -12,6 +12,8 @@ setuptools.setup(
         'moviepy',
         'sklearn',
         'torch',
-        'pytorch-lightning'
+        'pytorch-lightning',
+        'torchvision'
     ],
+    extras_require={'dev': ['pytest']}
 )

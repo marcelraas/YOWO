@@ -1,3 +1,5 @@
+from typing import Union
+
 import torch
 import torch.nn as nn
 
@@ -12,9 +14,10 @@ YOWO model used in spatialtemporal action localization
 
 class YOWO(nn.Module):
 
-    def __init__(self, opt):
+    def __init__(self, opt, key_frame_for_ol: int = -1):
         super(YOWO, self).__init__()
         self.opt = opt
+        self.key_frame_for_ol = key_frame_for_ol
         
         ##### 2D Backbone #####
         if opt.backbone_2d == "darknet":
@@ -70,11 +73,10 @@ class YOWO(nn.Module):
 
         self.seen = 0
 
-
-
     def forward(self, input):
+
         x_3d = input # Input clip
-        x_2d = input[:, :, -1, :, :] # Last frame of the clip that is read
+        x_2d = input[:, :, self.key_frame_for_ol, :, :]  # Read key frame
 
         x_2d = self.backbone_2d(x_2d)
         x_3d = self.backbone_3d(x_3d)

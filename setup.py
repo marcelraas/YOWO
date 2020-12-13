@@ -15,4 +15,5 @@ setuptools.setup(
         'pytorch-lightning',
         'torchvision'
     ],
+    extras_require={'dev': ['pytest']}
 )
